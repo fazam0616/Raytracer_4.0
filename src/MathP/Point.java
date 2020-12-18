@@ -26,7 +26,7 @@ public class Point {
     }
 
     public double getY() {
-        return y;
+        return this.y;
     }
 
     public double getZ() {

@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Main {
     public static LinkedList<Entity> objects = new LinkedList<>();
     public static Point cameraRot = new Point(0,0,0);
-    public static Point cameraPos = new Point(0,0,0);
+    public static Point cameraPos = new Point(-50,-10,20);
     public static Window window;
     public static Robot r;
     public static int frame = 0;

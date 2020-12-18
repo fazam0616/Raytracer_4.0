@@ -58,10 +58,6 @@ public class Panel extends JPanel {
 
         faces.sort(Face::compareTo);
         rot.setX(Main.cameraRot.getX()+FOV/2);
-        double distanceY =  tan(Main.cameraRot.getY())-
-                            tan(Main.cameraRot.getY()-angleOffset);
-        double distanceX =   tan(Main.cameraRot.getX()) -
-                tan(Main.cameraRot.getX()-angleOffset);
         for (int x = 0; x < length; x++) {
             rot.setY(Main.cameraRot.getY()+FOV/2);
             for (int y = 0; y < height; y++) {
@@ -75,21 +71,23 @@ public class Panel extends JPanel {
                     }
                     else
                         frame[x][y] = Color.white;
-                //System.out.println(getOff(rot.getY(),distance));
-                rot.setY(rot.getY() - angleOffset);
+//                System.out.println(((((rot.getY())))));
+//                rot.setY(rot.getY() - angleOffset);
+                rot.setY(Main.cameraRot.getY()-asin((sin(FOV/2)*2/height) - sin(rot.getY()-Main.cameraRot.getY())));
             }
-            if (rot.getX() < 0){
-                double angleX = -(Math.abs(rot.getX()) % 360);
-                rot.setX(angleX+360);
-            }else
-                rot.setX(rot.getX() % 360);
-
-            if (Main.cameraRot.getX() < 0){
-                double angleX = -(Math.abs(Main.cameraRot.getX()) % 360);
-                Main.cameraRot.setX(angleX+360);
-            }else
-                Main.cameraRot.setX(Main.cameraRot.getX() % 360);
-            rot.setX(rot.getX()- angleOffset);
+//            if (rot.getX() < 0){
+//                double angleX = -(Math.abs(rot.getX()) % 360);
+//                rot.setX(angleX+360);
+//            }else
+//                rot.setX(rot.getX() % 360);
+//
+//            if (Main.cameraRot.getX() < 0){
+//                double angleX = -(Math.abs(Main.cameraRot.getX()) % 360);
+//                Main.cameraRot.setX(angleX+360);
+//            }else
+//                Main.cameraRot.setX(Main.cameraRot.getX() % 360);
+            rot.setX(Main.cameraRot.getX()+acos((Math.abs(cos(FOV/2))*2/length) + cos(rot.getX()-Main.cameraRot.getX())));
+            System.out.println(rot.getX());
         }
         if (print){
             PrintWriter printW = null;
@@ -127,16 +125,18 @@ public class Panel extends JPanel {
         g.drawString("FRAME: "+Main.frame,10,60);
         Main.frame++;
     }
-
-    public static double getOff(double angle,double distance){
-        return 1;//-atan(tan(angle)-distance)+angle;
+    public static double sin(double angle){
+        return Math.sin(Math.toRadians(angle));
     }
 
-    public static double tan(double angle){
-        return Math.tan(Math.toRadians(angle));
+    public static double asin(double a){
+        return Math.toDegrees(Math.asin(a));
+    }
+    public static double cos(double angle){
+        return Math.cos(Math.toRadians(angle));
     }
 
-    public static double atan(double a){
-        return Math.toDegrees(Math.atan(a));
+    public static double acos(double a){
+        return Math.toDegrees(Math.acos(a));
     }
 }
