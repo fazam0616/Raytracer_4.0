@@ -1,16 +1,13 @@
 package Main;
+
 import GUI.Window;
-import MathP.Matrix;
 import MathP.Point;
 import ObjRender.Entity;
 import ObjRender.Face;
 import ObjRender.Parser;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 

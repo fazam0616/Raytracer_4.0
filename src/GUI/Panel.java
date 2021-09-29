@@ -72,8 +72,8 @@ public class Panel extends JPanel {
                     else
                         frame[x][y] = Color.white;
 //                System.out.println(((((rot.getY())))));
-//                rot.setY(rot.getY() - angleOffset);
-                rot.setY(Main.cameraRot.getY()-asin((sin(FOV/2)*2/height) - sin(rot.getY()-Main.cameraRot.getY())));
+                rot.setY(rot.getY() - angleOffset);
+//                rot.setY(Main.cameraRot.getY()-asin((sin(FOV/2)*2/height) - sin(rot.getY()-Main.cameraRot.getY())));
             }
 //            if (rot.getX() < 0){
 //                double angleX = -(Math.abs(rot.getX()) % 360);
@@ -86,8 +86,10 @@ public class Panel extends JPanel {
 //                Main.cameraRot.setX(angleX+360);
 //            }else
 //                Main.cameraRot.setX(Main.cameraRot.getX() % 360);
-            rot.setX(Main.cameraRot.getX()+acos((Math.abs(cos(FOV/2))*2/length) + cos(rot.getX()-Main.cameraRot.getX())));
-            System.out.println(rot.getX());
+
+            rot.setX(rot.getX() - angleOffset);
+//            rot.setX(Main.cameraRot.getX()+acos((Math.abs(cos(FOV/2))*2/length) + cos(rot.getX()-Main.cameraRot.getX())));
+            //System.out.println(rot.getX());
         }
         if (print){
             PrintWriter printW = null;
