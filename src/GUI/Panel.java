@@ -41,36 +41,37 @@ public class Panel extends JPanel {
 
         long currentTime = System.currentTimeMillis();
         String printFile = "";
-        for(Entity e: Main.objects){
-            for(Face f:e.getFaces()){
-//                Point p = f.getCenter();
-//                Vector v = Vector.getVector(Main.cameraPos, p);
-//                double dist = v.getRealNormal();
-//                double pitch = Math.toDegrees(Math.asin(v.getT().getZ()/dist))-90;
-//                double pan = Math.toDegrees(Math.acos(v.getT().getY()/dist))-90;
-//                if (pan > rot.getX() && pan-rot.getX() < FOV)
-//                    if(pitch < rot.getY() && pitch-rot.getY() < FOV)
-//                        if(dist > 5)
-                                faces.add(f);
-
-            }
-        }
-
-        faces.sort(Face::compareTo);
+//        for(Entity e: Main.objects){
+//            for(Face f:e.getFaces()){
+////                Point p = f.getCenter();
+////                Vector v = Vector.getVector(Main.cameraPos, p);
+////                double dist = v.getRealNormal();
+////                double pitch = Math.toDegrees(Math.asin(v.getT().getZ()/dist))-90;
+////                double pan = Math.toDegrees(Math.acos(v.getT().getY()/dist))-90;
+////                if (pan > rot.getX() && pan-rot.getX() < FOV)
+////                    if(pitch < rot.getY() && pitch-rot.getY() < FOV)
+////                        if(dist > 5)
+//                                faces.add(f);
+//
+//            }
+//        }
+//
+//        faces.sort(Face::compareTo);
         rot.setX(Main.cameraRot.getX()+FOV/2);
         for (int x = 0; x < length; x++) {
             rot.setY(Main.cameraRot.getY()+FOV/2);
             for (int y = 0; y < height; y++) {
                     Ray r = new Ray(Main.cameraPos.clone(),rot.clone());
 
-                    Face f = r.run(RENDER_DISTANCE, faces);
+                    Face f = r.run(RENDER_DISTANCE);
                     if (f != null){
                         frame[x][y] = f.getMaterial();
-                        if (print)
-                            printFile += (r.getPos())+"\n";
+
                     }
                     else
                         frame[x][y] = Color.white;
+                    if (print)
+                        printFile += (r.getPos())+"\n";
 //                System.out.println(((((rot.getY())))));
                 rot.setY(rot.getY() - angleOffset);
 //                rot.setY(Main.cameraRot.getY()-asin((sin(FOV/2)*2/height) - sin(rot.getY()-Main.cameraRot.getY())));
@@ -94,15 +95,17 @@ public class Panel extends JPanel {
         if (print){
             PrintWriter printW = null;
             try {
-                printW = new PrintWriter(new File("C:\\Users\\fazam\\3D Objects\\test.xyz"));
-                printW.print("");
-                printW.close();
-                printW = new PrintWriter(new File("C:\\Users\\fazam\\3D Objects\\test.xyz"));
-                printW.println(printFile);
-                printW.print(Main.cameraPos);
-                printW.flush();
-                printW.close();
-            } catch (FileNotFoundException e) {
+//                printW = new PrintWriter(new File("C:\\Users\\fazam\\3D Objects\\test.xyz"));
+//                printW.print("");
+//                printW.close();
+//                printW = new PrintWriter(new File("C:\\Users\\fazam\\3D Objects\\test.xyz"));
+//                printW.println(printFile);
+//                printW.print(Main.cameraPos);
+//                printW.flush();
+//                printW.close();
+                System.out.println(printFile);
+                System.out.println(Main.cameraPos);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             print = false;

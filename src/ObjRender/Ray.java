@@ -49,19 +49,65 @@ public class Ray {
     }
 
     public Face run(double renderDistance) {
-        for (Entity e:Main.objects){
-            for(Face f:e.getFaces()){
-                Plane plane = f.getPlane();
-                Point intersect = plane.vectorIntersec(this.v);
-                if (f.isCollision(intersect)){
-                    Vector path = Vector.getVector(v.getO(),intersect);
-                    if (path.getRealNormal() <= renderDistance){
-                        return f;
+//        for (Entity e:Main.objects){
+//            for(Face f:e.getFaces()){
+//                Plane plane = f.getPlane();
+//                Point intersect = plane.vectorIntersec(this.v);
+//                if (f.isCollision(intersect)){
+//                    Vector path = Vector.getVector(v.getO(),intersect);
+//                    if (path.getRealNormal() <= renderDistance){
+//                        return f;
+//                    }
+//                }
+//            }
+//        }
+//
+//        return null;
+
+        double dist = 0;
+        while (dist < renderDistance) {
+            if (Octree.base != null) {
+                Octree t = Octree.base.getCube(this.pos);
+                if (t.hasPoint()) {
+                    for (Face tri : t.getPoint().getTriangle()) {
+                        Plane plane = tri.getPlane();
+                        Point intersect = plane.vectorIntersec(this.v);
+                        if (tri.isCollision(intersect)) {
+                            //                        System.out.println("\n");
+                            this.pos = intersect;
+                            return tri;
+                        }
                     }
                 }
+                double xVal, yVal, zVal, l;
+
+                if (v.getT().getX() < 0)
+                    xVal = (t.getOrigin().getX() - pos.getX())/v.getT().getX();
+                else
+                    xVal = ((t.getOrigin().getX() + t.getHalfLen()*2) - pos.getX())/v.getT().getX();
+
+                if (v.getT().getY() < 0)
+                    yVal = (t.getOrigin().getY() - pos.getY())/v.getT().getY();
+                else
+                    yVal = ((t.getOrigin().getY() + t.getHalfLen()*2) - pos.getY())/v.getT().getY();
+
+                if (v.getT().getZ() < 0)
+                    zVal = (t.getOrigin().getZ() - pos.getZ())/v.getT().getZ();
+                else
+                    zVal = ((t.getOrigin().getZ() + t.getHalfLen()*2) - pos.getZ())/v.getT().getZ();
+
+                l = Math.max(Math.min(xVal, Math.min(yVal, zVal)), t.getHalfLen()/10000);
+
+                pos = v.getPoint(l);
+//                System.out.print(", "+pos);
+                v.setO(pos);
+                dist += l*v.getRealNormal();
+            }else {
+//                System.out.println("");
+                return null;
             }
         }
-
+//        System.out.println("HIT DEPTH");
         return null;
     }
 

@@ -16,6 +16,9 @@ public class Face implements Comparable<Face> {
 
     public Face(Point a,Point b, Point c, Color color) {
         points = new Point[]{a,b,c};
+        for (int i = 0; i < 3; i++) {
+            points[i].addTriangle(this);
+        }
         this.color = (Material) color;
     }
 
@@ -88,6 +91,8 @@ public class Face implements Comparable<Face> {
     public Material getMaterial() {
         return color;
     }
+
+//    private double getDist
 
     public int compareTo(Face that) {
         double thisD;

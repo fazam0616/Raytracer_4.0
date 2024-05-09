@@ -21,18 +21,13 @@ public class Plane {
     }
 
     public Point vectorIntersec(Vector v){
-        double t =
-                normal.getT().getX() * v.getT().getX() +
-                normal.getT().getY() * v.getT().getY() +
-                normal.getT().getZ() * v.getT().getZ();
+        double t = Vector.dotProduct(normal, v);
         double D = this.d - (
                 normal.getT().getX() * v.getO().getX() +
                 normal.getT().getY() * v.getO().getY() +
                 normal.getT().getZ() * v.getO().getZ());
         double T = D/t;
-        if(T>=0)return v.getPoint(T);
-        else
-            return null;
+        return v.getPoint(T);
     }
 
     public Vector getNormal() {

@@ -56,17 +56,17 @@ public class Main {
 
 //        objects.get(0).rotate(new Point(0,0,0));
         while (true){
-            objects.sort(Entity::compareTo);
-            for (Entity e:objects){
-                e.getFaces().sort(Face::compareTo);
-            }
+//            objects.sort(Entity::compareTo);
+//            for (Entity e:objects){
+//                e.getFaces().sort(Face::compareTo);
+//            }
             if (!window.paused){
                 //h.move(new Point(0,0,0.01));
                 moveCamera();
                 window.repaint();
             }
 
-            Thread.sleep(1);
+//            Thread.sleep(1);
         }
     }
 

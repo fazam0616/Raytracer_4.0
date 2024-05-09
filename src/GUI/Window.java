@@ -16,7 +16,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 public class Window extends JFrame implements KeyListener, MouseMotionListener {
-    public double movementSpeed = 0.2;
+    public double movementSpeed = 0.00002;
 
     public double forwardDirection;
     public double strafeDirection;
@@ -25,7 +25,7 @@ public class Window extends JFrame implements KeyListener, MouseMotionListener {
     public Robot r;
 
     public boolean paused = false;
-    private double mouseSens = 0.1;
+    private double mouseSens = 0.01;
 
     BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
     Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
@@ -75,11 +75,11 @@ public class Window extends JFrame implements KeyListener, MouseMotionListener {
                 break;
             case KeyEvent.VK_MINUS:
                 Panel.FOV-=10;
-                System.out.println(Panel.FOV);
+//                System.out.println(Panel.FOV);
                 break;
             case KeyEvent.VK_EQUALS:
                 Panel.FOV+=10;
-                System.out.println(Panel.FOV);
+//                System.out.println(Panel.FOV);
                 break;
             case KeyEvent.VK_H:
                 Main.cameraPos = new MathP.Point(0,0,0);

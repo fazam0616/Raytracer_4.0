@@ -1,5 +1,6 @@
 package ObjRender;
 
+import MathP.Octree;
 import MathP.Point;
 
 import java.awt.*;
@@ -28,7 +29,7 @@ public class Parser {
                     currentMat = getMat(names, mats, lineReader.nextLine().trim());
                 }
             }
-            if (line.length() >= 1){
+            if (!line.isEmpty()){
                 if (line.charAt(0) == 'v' || line.charAt(0) == 'f') {
                     lineReader.next();
                     switch (line.charAt(0)){
@@ -38,6 +39,12 @@ public class Parser {
                                     lineReader.nextDouble(),
                                     lineReader.nextDouble()
                             ));
+                            Point p = points.getLast();
+                            if (Octree.base == null){
+                                double side = Point.max(p);
+                                Octree.base = new Octree(new Point(-side + p.getX(), -side + p.getY(), -side + p.getZ()), side);
+                            }
+                            Octree.base.getCube(p).contain(p);
                             break;
                         case 'f':
                             faces.add(new Face(
@@ -51,7 +58,8 @@ public class Parser {
                 }
             }
         }
-
+        System.out.println(Octree.base.count());
+        System.out.print(Octree.base);
         return new Entity(faces);
     }
 
